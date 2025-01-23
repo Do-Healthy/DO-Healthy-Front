@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
+import { CreditCard, DollarSign, Eye, EyeOff, Search } from 'lucide-react';
+import { useState } from 'react';
 
 import { Button } from '../button';
 import { Label } from '../label';
@@ -103,5 +105,83 @@ export const WithButton: Story = {
     await expect(button).toBeInTheDocument();
     await userEvent.type(input, '검색어');
     await expect(input).toHaveValue('검색어');
+  },
+};
+
+/**
+ * 왼쪽에 아이콘이 있는 입력 필드입니다.
+ */
+export const WithLeftSlot: Story = {
+  render: () => (
+    <div className="w-full max-w-sm">
+      <Input
+        placeholder="검색어를 입력해주세요"
+        leftSlot={<Search className="h-4 w-4 text-muted-foreground" />}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('검색어를 입력해주세요');
+    await expect(input).toBeInTheDocument();
+    await userEvent.type(input, '검색어');
+    await expect(input).toHaveValue('검색어');
+  },
+};
+
+/**
+ * 오른쪽에 아이콘이 있는 입력 필드입니다.
+ */
+function WithRightSlotDemo() {
+  const [type, setType] = useState('password');
+  return (
+    <div className="w-full max-w-sm">
+      <Input
+        type={type}
+        placeholder="비밀번호를 입력해주세요"
+        rightSlot={
+          <Button
+            variant="ghost"
+            className="h-4 w-4 p-0 text-muted-foreground"
+            onClick={() => setType(type === 'password' ? 'text' : 'password')}
+          >
+            {type === 'password' ? <Eye /> : <EyeOff />}
+          </Button>
+        }
+      />
+    </div>
+  );
+}
+
+export const WithRightSlot: Story = {
+  render: () => <WithRightSlotDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('비밀번호를 입력해주세요');
+    await expect(input).toBeInTheDocument();
+    await userEvent.type(input, 'password123');
+    await expect(input).toHaveValue('password123');
+  },
+};
+
+/**
+ * 양쪽에 아이콘이 있는 입력 필드입니다.
+ */
+export const WithBothSlots: Story = {
+  render: () => (
+    <div className="w-full max-w-sm">
+      <Input
+        placeholder="금액을 입력해주세요"
+        leftSlot={<DollarSign className="h-4 w-4 text-muted-foreground" />}
+        rightSlot={<CreditCard className="h-4 w-4 text-muted-foreground" />}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('금액을 입력해주세요');
+    await expect(input).toBeInTheDocument();
+    await userEvent.type(input, '10000');
+    await expect(input).toHaveValue('10000');
   },
 };

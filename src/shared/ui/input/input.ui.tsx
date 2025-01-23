@@ -1,3 +1,4 @@
+import { Slot } from '@radix-ui/react-slot';
 import { VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
@@ -19,10 +20,37 @@ const inputVariants = cva(
   },
 );
 
-type InputProps = Omit<React.ComponentProps<'input'>, 'size'> & VariantProps<typeof inputVariants>;
+type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
+  VariantProps<typeof inputVariants> & {
+    leftSlot?: React.ReactNode;
+    rightSlot?: React.ReactNode;
+  };
 
-function Input({ className, type, size, ...props }: InputProps) {
-  return <input type={type} className={cn(inputVariants({ size }), className)} {...props} />;
+function Input({ className, type, size, leftSlot, rightSlot, ...props }: InputProps) {
+  return (
+    <div className="relative flex items-center">
+      {leftSlot && (
+        <Slot className="pointer-events-none absolute left-3 flex items-center [&:where(button)]:pointer-events-auto">
+          {leftSlot}
+        </Slot>
+      )}
+      <input
+        type={type}
+        className={cn(
+          inputVariants({ size }),
+          leftSlot && 'pl-10',
+          rightSlot && 'pr-10',
+          className,
+        )}
+        {...props}
+      />
+      {rightSlot && (
+        <Slot className="pointer-events-none absolute right-3 flex items-center [&:where(button)]:pointer-events-auto">
+          {rightSlot}
+        </Slot>
+      )}
+    </div>
+  );
 }
 
 export { Input };
