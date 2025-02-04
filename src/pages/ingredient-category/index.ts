@@ -1,1 +1,1 @@
-export { default as CategoryPage } from './ingredient-category-page.ui';
+export { IngredientCategoryPage } from './ingredient-category-page.ui';

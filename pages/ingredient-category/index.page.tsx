@@ -1,3 +1,3 @@
-import { CategoryPage } from '@/pages/ingredient-category';
+import { IngredientCategoryPage } from '@/pages/ingredient-category';
 
-export default CategoryPage;
+export default IngredientCategoryPage;
