@@ -20,7 +20,7 @@ export default meta;
 
 type Story = StoryObj<typeof IngredientCategoryCard>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     ingredientTitle: '두부/콩류',
     ingredientDescription: '두부, 렌틸콩, 병아리콩 등',
@@ -29,9 +29,10 @@ export const Primary: Story = {
   },
 };
 
+// 화면 너비가 767px 이하일 때 설명(description)이 숨겨지는 반응형 카드를 보여주는 스토리
 export const WithoutDescription: Story = {
   args: {
-    ...Primary.args,
+    ...Default.args,
     ingredientDescription: '',
   },
 };

@@ -23,8 +23,7 @@ const meta: Meta<typeof IngredientCategoryContainer> = {
 export default meta;
 type Story = StoryObj<typeof IngredientCategoryContainer>;
 
-// 기본 그리드 레이아웃 스토리
-export const DefaultGrid: Story = {
+export const Default: Story = {
   args: {
     ingredientCategories: INGREDIENT_CATEGORIES,
   },
