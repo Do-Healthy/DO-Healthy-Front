@@ -10,6 +10,7 @@ import { Label } from '@/shared/ui/label';
 import { Textarea } from '@/shared/ui/textarea';
 
 import { CreateRecipe, CreateRecipeSchema } from './create-recipe.contract';
+import { submitRecipeForm } from './create-recipe.lib';
 
 export function CreateRecipeForm() {
   const methods = useForm<CreateRecipe>({
@@ -22,38 +23,8 @@ export function CreateRecipeForm() {
 
   const onSubmit = async (formData: CreateRecipe) => {
     try {
-      const newFormData = structuredClone(formData);
-
-      // 1. 썸네일 이미지 처리
-      if (formData.thumbnail instanceof File) {
-        // 실제 API 호출 대신 Promise 사용
-        newFormData.thumbnail = await new Promise<string>((resolve) => {
-          setTimeout(() => {
-            resolve('https://picsum.photos/id/237/350/200');
-          }, 1000);
-        });
-      }
-
-      // 2. 조리 단계 이미지들 처리
-      const cookingSteps = formData.cookingSteps.map((step) => {
-        if (step.image instanceof File) {
-          return new Promise<string>((resolve) => {
-            setTimeout(() => {
-              resolve('https://picsum.photos/id/237/350/200');
-            }, 1000);
-          });
-        }
-        return null;
-      });
-      let index = 0;
-      for await (const step of cookingSteps) {
-        if (step) {
-          newFormData.cookingSteps[index].image = step;
-        }
-        index++;
-      }
-
-      console.log('최종 제출될 데이터:', newFormData);
+      const newFormData = await submitRecipeForm(formData);
+      console.log('레시피 저장 완료:', newFormData);
     } catch (error) {
       console.error('레시피 저장 중 오류 발생:', error);
     }
