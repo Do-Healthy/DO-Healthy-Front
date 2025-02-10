@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { QueryClientProvider } from '@tanstack/react-query';
+
+import { queryClient } from '@/shared/libs/react-query';
 
 import { CreateRecipeEditorPage, UpdateRecipeEditorPage } from './recipe-editor-page.ui';
 
@@ -12,6 +15,13 @@ const meta = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<never>;
 
