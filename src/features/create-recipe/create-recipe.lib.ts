@@ -14,7 +14,7 @@ export async function submitRecipeForm(formData: CreateRecipe) {
       newFormData.thumbnail = await new Promise<string>((resolve) => {
         setTimeout(() => {
           resolve('https://picsum.photos/id/237/350/200');
-        }, 1000);
+        }, 100);
       });
     }
 
@@ -24,7 +24,7 @@ export async function submitRecipeForm(formData: CreateRecipe) {
         return new Promise<string>((resolve) => {
           setTimeout(() => {
             resolve('https://picsum.photos/id/237/350/200');
-          }, 1000);
+          }, 100);
         });
       }
       return null;
