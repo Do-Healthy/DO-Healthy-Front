@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { QueryClientProvider } from '@tanstack/react-query';
+
+import { queryClient } from '@/shared/libs/react-query';
 
 import { CreateRecipeForm } from './create-recipe.ui';
 
@@ -9,6 +12,13 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
 } satisfies Meta<typeof CreateRecipeForm>;
 
 export default meta;

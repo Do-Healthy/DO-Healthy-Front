@@ -11,8 +11,10 @@ import { Textarea } from '@/shared/ui/textarea';
 
 import { CreateRecipe, CreateRecipeSchema } from './create-recipe.contract';
 import { submitRecipeForm } from './create-recipe.lib';
+import { useCreateRecipeMutation } from './create-recipe.mutation';
 
 export function CreateRecipeForm() {
+  const createRecipeMutation = useCreateRecipeMutation();
   const methods = useForm<CreateRecipe>({
     resolver: zodResolver(CreateRecipeSchema),
     defaultValues: {
@@ -24,7 +26,11 @@ export function CreateRecipeForm() {
   const onSubmit = async (formData: CreateRecipe) => {
     try {
       const newFormData = await submitRecipeForm(formData);
-      console.log('레시피 저장 완료:', newFormData);
+      await createRecipeMutation.mutateAsync(newFormData, {
+        onSuccess: () => {
+          console.log('레시피 저장 완료:', newFormData);
+        },
+      });
     } catch (error) {
       console.error('레시피 저장 중 오류 발생:', error);
     }
@@ -275,7 +281,7 @@ export function CreateRecipeForm() {
           <Button type="button" size="lg" variant="outline">
             임시 저장
           </Button>
-          <Button size="lg" type="submit">
+          <Button size="lg" type="submit" disabled={createRecipeMutation.isPending}>
             작성 완료
           </Button>
         </div>
