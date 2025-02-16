@@ -1,4 +1,3 @@
-// category-ingredient-container.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { INGREDIENT_CATEGORIES } from './category-ingredient-container.config';
@@ -25,6 +24,6 @@ type Story = StoryObj<typeof IngredientCategoryContainer>;
 
 export const Default: Story = {
   args: {
-    ingredientCategories: INGREDIENT_CATEGORIES,
+    categories: INGREDIENT_CATEGORIES,
   },
 };
