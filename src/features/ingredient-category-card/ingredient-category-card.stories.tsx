@@ -7,12 +7,12 @@ const meta: Meta<typeof IngredientCategoryCard> = {
   component: IngredientCategoryCard,
   tags: ['autodocs'],
   argTypes: {
-    ingredientTitle: { control: 'text' },
-    ingredientDescription: { control: 'text' },
-    ingredientIcon: {
+    title: { control: 'text' },
+    description: { control: 'text' },
+    icon: {
       control: 'text',
     },
-    ingredientImageSrc: { control: 'text' },
+    imageSrc: { control: 'text' },
   },
 };
 
@@ -22,10 +22,10 @@ type Story = StoryObj<typeof IngredientCategoryCard>;
 
 export const Default: Story = {
   args: {
-    ingredientTitle: '두부/콩류',
-    ingredientDescription: '두부, 렌틸콩, 병아리콩 등',
-    ingredientIcon: '🌱',
-    ingredientImageSrc: 'https://picsum.photos/id/237/350/200',
+    title: '두부/콩류',
+    description: '두부, 렌틸콩, 병아리콩 등',
+    icon: '🌱',
+    imageSrc: 'https://picsum.photos/id/237/350/200',
   },
 };
 
@@ -33,6 +33,6 @@ export const Default: Story = {
 export const WithoutDescription: Story = {
   args: {
     ...Default.args,
-    ingredientDescription: '',
+    description: '',
   },
 };
