@@ -1,6 +1,6 @@
-export interface IngredientCategory {
+export type IngredientCategory = {
   title: string;
   imageSrc: string;
   icon: React.ReactNode;
   description: string;
-}
+};
