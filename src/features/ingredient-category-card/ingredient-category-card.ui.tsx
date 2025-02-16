@@ -1,21 +1,17 @@
 import Image from 'next/image';
 import { ComponentProps } from 'react';
 
+import { IngredientCategory } from '@/entities/ingredient/ingredient.type';
 import { cn } from '@/shared/utils';
 
-interface IngredientCategoryCardProps extends ComponentProps<'div'> {
-  ingredientImageSrc: string;
-  ingredientIcon?: React.ReactNode;
-  ingredientTitle: string;
-  ingredientDescription: string;
-}
+type IngredientCategoryCardProps = ComponentProps<'div'> & IngredientCategory;
 
 function IngredientCategoryCard({
   className,
-  ingredientImageSrc,
-  ingredientIcon,
-  ingredientTitle,
-  ingredientDescription,
+  imageSrc,
+  icon,
+  title,
+  description,
   ...props
 }: IngredientCategoryCardProps) {
   return (
@@ -31,14 +27,8 @@ function IngredientCategoryCard({
     >
       {/* 이미지 영역 */}
       <div className="relative h-0 w-full overflow-hidden rounded-md pb-[50%]">
-        <Image
-          src={ingredientImageSrc}
-          alt={ingredientTitle}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-md"
-        />
-        {!ingredientImageSrc && (
+        <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" className="rounded-md" />
+        {!imageSrc && (
           <span className="absolute inset-0 flex items-center justify-center text-gray-500">
             Image
           </span>
@@ -48,14 +38,10 @@ function IngredientCategoryCard({
       {/* 텍스트 영역 */}
       <div className="mt-3 flex-grow sm:mt-5">
         <div className="flex flex-nowrap items-center gap-2">
-          {ingredientIcon && (
-            <span className="flex-shrink-0 text-base sm:text-lg">{ingredientIcon}</span>
-          )}
-          <span className="truncate text-sm font-semibold sm:text-base">{ingredientTitle}</span>
+          {icon && <span className="flex-shrink-0 text-base sm:text-lg">{icon}</span>}
+          <span className="truncate text-sm font-semibold sm:text-base">{title}</span>
         </div>
-        <p className="mt-1 hidden text-xs text-gray-600 sm:text-sm md:block">
-          {ingredientDescription}
-        </p>
+        <p className="mt-1 hidden text-xs text-gray-600 sm:text-sm md:block">{description}</p>
       </div>
     </div>
   );
