@@ -28,7 +28,7 @@ type InputProps = Omit<React.ComponentProps<'input'>, 'size'> &
 
 function Input({ className, type, size, leftSlot, rightSlot, ...props }: InputProps) {
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex flex-1 items-center">
       {leftSlot && (
         <Slot className="pointer-events-none absolute left-3 flex items-center [&:where(button)]:pointer-events-auto">
           {leftSlot}
