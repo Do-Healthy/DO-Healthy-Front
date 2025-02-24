@@ -133,7 +133,7 @@ jobs:
         run: pnpm run ci
 
       - name: 빌드
-        run: pnpm run build:cloudflare
+        run: pnpm run build:opennext
 
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
