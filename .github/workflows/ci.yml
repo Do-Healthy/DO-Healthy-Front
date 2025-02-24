@@ -65,11 +65,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build 결과물 다운로드
-        uses: actions/download-artifact@v4
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
         with:
-          name: build-output
-          path: .
+          node-version: '20'
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v2
+        with:
+          version: '9.14.2'
+          run_install: false
+
+      - name: pnpm store 가져오기
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        id: pnpm-cache
+
+      - name: pnpm cache 설정
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 의존성 설치
+        run: pnpm run ci
+
+      - name: Storybook 빌드
+        run: pnpm run build-storybook
 
       - name: GitHub Pages 배포
         uses: peaceiris/actions-gh-pages@v3
@@ -85,16 +110,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v2
+        with:
+          version: '9.14.2'
+          run_install: false
+
+      - name: pnpm store 가져오기
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        id: pnpm-cache
+
+      - name: pnpm cache 설정
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 의존성 설치
+        run: pnpm run ci
+
       - name: Build 결과물 다운로드
         uses: actions/download-artifact@v4
         with:
           name: build-output
           path: .next
-
-      - name: Node.js 설정
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
 
       - name: Wrangler 설치
         run: npm install -g wrangler
