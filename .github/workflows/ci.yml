@@ -132,7 +132,10 @@ jobs:
       - name: 의존성 설치
         run: pnpm run ci
 
-      - name: Build & Deploy Worker
+      - name: 빌드
+        run: pnpm run build:cloudflare
+
+      - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
