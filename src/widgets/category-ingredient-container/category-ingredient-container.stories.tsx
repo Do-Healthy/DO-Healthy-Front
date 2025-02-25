@@ -24,6 +24,6 @@ type Story = StoryObj<typeof IngredientCategoryContainer>;
 
 export const Default: Story = {
   args: {
-    categories: INGREDIENT_CATEGORIES,
+    categories: [...INGREDIENT_CATEGORIES],
   },
 };
