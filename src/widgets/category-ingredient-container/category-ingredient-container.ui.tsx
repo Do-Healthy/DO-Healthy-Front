@@ -6,11 +6,11 @@ import { IngredientCategoryCard } from '@/features/ingredient-category-card/ingr
 import { INGREDIENT_CATEGORIES } from './category-ingredient-container.config';
 
 type CategoryContainerProps = ComponentProps<'div'> & {
-  categories?: readonly IngredientCategory[];
+  categories?: IngredientCategory[];
 };
 
 export function IngredientCategoryContainer({
-  categories = INGREDIENT_CATEGORIES,
+  categories = [...INGREDIENT_CATEGORIES],
   ...props
 }: CategoryContainerProps) {
   return (
