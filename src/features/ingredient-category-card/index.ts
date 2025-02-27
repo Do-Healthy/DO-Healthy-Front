@@ -1,0 +1,1 @@
+export { IngredientCategoryCard } from './ingredient-category-card.ui';
