@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ComponentProps } from 'react';
 
-import { IngredientCategory } from '@/entities/ingredient/ingredient.type';
+import { IngredientCategory } from '@/entities/ingredient';
 import { cn } from '@/shared/utils';
 
 type IngredientCategoryCardProps = ComponentProps<'div'> & IngredientCategory;
