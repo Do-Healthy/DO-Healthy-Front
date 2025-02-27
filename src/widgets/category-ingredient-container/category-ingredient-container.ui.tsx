@@ -1,18 +1,13 @@
 import { ComponentProps } from 'react';
 
-import { IngredientCategory } from '@/entities/ingredient/ingredient.type';
-import { IngredientCategoryCard } from '@/features/ingredient-category-card/ingredient-category-card.ui';
-
-import { INGREDIENT_CATEGORIES } from './category-ingredient-container.config';
+import { IngredientCategory } from '@/entities/ingredient';
+import { IngredientCategoryCard } from '@/features/ingredient-category-card';
 
 type CategoryContainerProps = ComponentProps<'div'> & {
-  categories?: IngredientCategory[];
+  categories: IngredientCategory[];
 };
 
-export function IngredientCategoryContainer({
-  categories = [...INGREDIENT_CATEGORIES],
-  ...props
-}: CategoryContainerProps) {
+export function IngredientCategoryContainer({ categories, ...props }: CategoryContainerProps) {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" {...props}>
       {categories.map((category) => (
